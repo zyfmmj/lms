@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peppa.yec.demo.mapper.OfficeMapper">
+
+    <select id="findByCity" resultType="office">
+        select id, `name`, city
+        from office
+        <if test="city!=null and city!=''">
+            where city = #{city}
+        </if>
+    </select>
+    
+    <select id="findByPrimaryKey" resultType="office">
+        select id, `name`, city
+        from office
+        where id = #{id}
+    </select>
+
+    <select id="findIdByName" resultType="java.lang.Integer">
+        select id
+        from office
+        where `name` = #{name}
+    </select>
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peppa.yec.demo.mapper.OrderFormMapper">
+
+    <resultMap id="getOrderForm" type="orderForm">
+        <id column="id" property="id" />
+        <result column="orderId" property="orderId" />
+        <result column="give" property="give" />
+        <result column="give_addr" property="giveAddr" />
+        <result column="give_phone" property="givePhone" />
+        <result column="take" property="take" />
+        <result column="take_addr" property="takeAddr" />
+        <result column="take_phone" property="takePhone" />
+        <result column="cargo_name" property="cargoName" />
+        <result column="cargo_num" property="cargoNum" />
+        <result column="cargo_weight" property="cargoWeight" />
+        <result column="cargo_bulk" property="cargoBulk" />
+        <result column="cargo_comment" property="cargoComment" />
+
+    </resultMap>
+    
+    
+    <select id="findByOrderId" resultMap="getOrderForm">
+        select
+        id, orderId, give, give_addr, give_phone, take, take_addr, take_phone, cargo_name, cargo_num, cargo_weight, cargo_bulk, cargo_comment
+         from order_form
+         where orderId = #{orderId}
+    </select>
+</mapper>

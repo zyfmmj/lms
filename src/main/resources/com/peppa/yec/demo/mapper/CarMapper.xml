@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peppa.yec.demo.mapper.CarMapper">
+    <resultMap id="car" type="car">
+        <id column="id" property="id" />
+        <result column="officeId" property="officeId" />
+        <result column="driverId" property="driverId" />
+        <result column="car_plate" property="carId" />
+        <result column="car_state" property="carState" />
+    </resultMap>
+    <select id="findByOfficeId" resultMap="car">
+        select id, officeId, driverId, car_plate, car_state
+        from car
+        <where>
+            <if test="officeId != null">
+                officeId = #{officeId}
+            </if>
+        </where>
+    </select>
+</mapper>

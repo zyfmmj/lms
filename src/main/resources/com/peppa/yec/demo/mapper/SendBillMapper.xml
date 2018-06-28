@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peppa.yec.demo.mapper.SendBillMapper">
+  <resultMap id="BaseResultMap" type="sendBill">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="waybill_no" jdbcType="INTEGER" property="waybillNo" />
+    <result column="origin" jdbcType="VARCHAR" property="origin" />
+    <result column="terminus" jdbcType="VARCHAR" property="terminus" />
+    <result column="send_date" jdbcType="TIMESTAMP" property="sendDate" />
+    <result column="give" jdbcType="VARCHAR" property="give" />
+    <result column="give_addr" jdbcType="VARCHAR" property="giveAddr" />
+    <result column="give_phone" jdbcType="VARCHAR" property="givePhone" />
+    <result column="take" jdbcType="VARCHAR" property="take" />
+    <result column="take_addr" jdbcType="VARCHAR" property="takeAddr" />
+    <result column="take_phone" jdbcType="VARCHAR" property="takePhone" />
+    <result column="cargo_name" jdbcType="VARCHAR" property="cargoName" />
+    <result column="cargo_num" jdbcType="INTEGER" property="cargoNum" />
+    <result column="pack_way" jdbcType="VARCHAR" property="packWay" />
+    <result column="cargo_weight" jdbcType="DECIMAL" property="cargoWeight" />
+    <result column="cargo_bulk" jdbcType="DECIMAL" property="cargoBulk" />
+    <result column="ship_cost" jdbcType="DECIMAL" property="shipCost" />
+    <result column="service_cost" jdbcType="DECIMAL" property="serviceCost" />
+    <result column="insurance" jdbcType="DECIMAL" property="insurance" />
+    <result column="premium" jdbcType="DECIMAL" property="premium" />
+    <result column="cargo_comment" jdbcType="VARCHAR" property="cargoComment" />
+    <result column="clearing_form" jdbcType="VARCHAR" property="clearingForm" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="office_name" jdbcType="VARCHAR" property="officeName" />
+    <result column="state" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, waybill_no, origin, terminus, send_date, give, give_addr, give_phone, take, take_addr, 
+    take_phone, cargo_name, cargo_num, pack_way, cargo_weight, cargo_bulk, ship_cost, 
+    service_cost, insurance, premium, cargo_comment, clearing_form, comment, office_name, state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from send_bill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from send_bill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sendBill">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into send_bill (waybill_no, origin, terminus, 
+      send_date, give, give_addr, 
+      give_phone, take, take_addr, 
+      take_phone, cargo_name, cargo_num, 
+      pack_way, cargo_weight, cargo_bulk, 
+      ship_cost, service_cost, insurance, 
+      premium, cargo_comment, clearing_form, 
+      comment, office_name)
+    values (#{waybillNo,jdbcType=INTEGER}, #{origin,jdbcType=VARCHAR}, #{terminus,jdbcType=VARCHAR}, 
+      #{sendDate,jdbcType=TIMESTAMP}, #{give,jdbcType=VARCHAR}, #{giveAddr,jdbcType=VARCHAR}, 
+      #{givePhone,jdbcType=VARCHAR}, #{take,jdbcType=VARCHAR}, #{takeAddr,jdbcType=VARCHAR}, 
+      #{takePhone,jdbcType=VARCHAR}, #{cargoName,jdbcType=VARCHAR}, #{cargoNum,jdbcType=INTEGER}, 
+      #{packWay,jdbcType=VARCHAR}, #{cargoWeight,jdbcType=DECIMAL}, #{cargoBulk,jdbcType=DECIMAL}, 
+      #{shipCost,jdbcType=DECIMAL}, #{serviceCost,jdbcType=DECIMAL}, #{insurance,jdbcType=DECIMAL}, 
+      #{premium,jdbcType=DECIMAL}, #{cargoComment,jdbcType=VARCHAR}, #{clearingForm,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=VARCHAR}, #{officeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="sendBill">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into send_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="waybillNo != null">
+        waybill_no,
+      </if>
+      <if test="origin != null">
+        origin,
+      </if>
+      <if test="terminus != null">
+        terminus,
+      </if>
+      <if test="sendDate != null">
+        send_date,
+      </if>
+      <if test="give != null">
+        give,
+      </if>
+      <if test="giveAddr != null">
+        give_addr,
+      </if>
+      <if test="givePhone != null">
+        give_phone,
+      </if>
+      <if test="take != null">
+        take,
+      </if>
+      <if test="takeAddr != null">
+        take_addr,
+      </if>
+      <if test="takePhone != null">
+        take_phone,
+      </if>
+      <if test="cargoName != null">
+        cargo_name,
+      </if>
+      <if test="cargoNum != null">
+        cargo_num,
+      </if>
+      <if test="packWay != null">
+        pack_way,
+      </if>
+      <if test="cargoWeight != null">
+        cargo_weight,
+      </if>
+      <if test="cargoBulk != null">
+        cargo_bulk,
+      </if>
+      <if test="shipCost != null">
+        ship_cost,
+      </if>
+      <if test="serviceCost != null">
+        service_cost,
+      </if>
+      <if test="insurance != null">
+        insurance,
+      </if>
+      <if test="premium != null">
+        premium,
+      </if>
+      <if test="cargoComment != null">
+        cargo_comment,
+      </if>
+      <if test="clearingForm != null">
+        clearing_form,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="officeName != null">
+        office_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="waybillNo != null">
+        #{waybillNo,jdbcType=INTEGER},
+      </if>
+      <if test="origin != null">
+        #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="terminus != null">
+        #{terminus,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDate != null">
+        #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="give != null">
+        #{give,jdbcType=VARCHAR},
+      </if>
+      <if test="giveAddr != null">
+        #{giveAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="givePhone != null">
+        #{givePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="take != null">
+        #{take,jdbcType=VARCHAR},
+      </if>
+      <if test="takeAddr != null">
+        #{takeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="takePhone != null">
+        #{takePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null">
+        #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoNum != null">
+        #{cargoNum,jdbcType=INTEGER},
+      </if>
+      <if test="packWay != null">
+        #{packWay,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoWeight != null">
+        #{cargoWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="cargoBulk != null">
+        #{cargoBulk,jdbcType=DECIMAL},
+      </if>
+      <if test="shipCost != null">
+        #{shipCost,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceCost != null">
+        #{serviceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null">
+        #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="premium != null">
+        #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="cargoComment != null">
+        #{cargoComment,jdbcType=VARCHAR},
+      </if>
+      <if test="clearingForm != null">
+        #{clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="officeName != null">
+        #{officeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWaybillNoSelective" parameterType="sendBill">
+    update send_bill
+    <set>
+      <if test="waybillNo != null">
+        waybill_no = #{waybillNo,jdbcType=INTEGER},
+      </if>
+      <if test="origin != null">
+        origin = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="terminus != null">
+        terminus = #{terminus,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDate != null">
+        send_date = #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="give != null">
+        give = #{give,jdbcType=VARCHAR},
+      </if>
+      <if test="giveAddr != null">
+        give_addr = #{giveAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="givePhone != null">
+        give_phone = #{givePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="take != null">
+        take = #{take,jdbcType=VARCHAR},
+      </if>
+      <if test="takeAddr != null">
+        take_addr = #{takeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="takePhone != null">
+        take_phone = #{takePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null">
+        cargo_name = #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoNum != null">
+        cargo_num = #{cargoNum,jdbcType=INTEGER},
+      </if>
+      <if test="packWay != null">
+        pack_way = #{packWay,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoWeight != null">
+        cargo_weight = #{cargoWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="cargoBulk != null">
+        cargo_bulk = #{cargoBulk,jdbcType=DECIMAL},
+      </if>
+      <if test="shipCost != null">
+        ship_cost = #{shipCost,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceCost != null">
+        service_cost = #{serviceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null">
+        insurance = #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="premium != null">
+        premium = #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="cargoComment != null">
+        cargo_comment = #{cargoComment,jdbcType=VARCHAR},
+      </if>
+      <if test="clearingForm != null">
+        clearing_form = #{clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="officeName != null">
+        office_name = #{officeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where waybill_no = #{waybillNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sendBill">
+    update send_bill
+    <set>
+      <if test="waybillNo != null">
+        waybill_no = #{waybillNo,jdbcType=INTEGER},
+      </if>
+      <if test="origin != null">
+        origin = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="terminus != null">
+        terminus = #{terminus,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDate != null">
+        send_date = #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="give != null">
+        give = #{give,jdbcType=VARCHAR},
+      </if>
+      <if test="giveAddr != null">
+        give_addr = #{giveAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="givePhone != null">
+        give_phone = #{givePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="take != null">
+        take = #{take,jdbcType=VARCHAR},
+      </if>
+      <if test="takeAddr != null">
+        take_addr = #{takeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="takePhone != null">
+        take_phone = #{takePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null">
+        cargo_name = #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoNum != null">
+        cargo_num = #{cargoNum,jdbcType=INTEGER},
+      </if>
+      <if test="packWay != null">
+        pack_way = #{packWay,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoWeight != null">
+        cargo_weight = #{cargoWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="cargoBulk != null">
+        cargo_bulk = #{cargoBulk,jdbcType=DECIMAL},
+      </if>
+      <if test="shipCost != null">
+        ship_cost = #{shipCost,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceCost != null">
+        service_cost = #{serviceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null">
+        insurance = #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="premium != null">
+        premium = #{premium,jdbcType=DECIMAL},
+      </if>
+      <if test="cargoComment != null">
+        cargo_comment = #{cargoComment,jdbcType=VARCHAR},
+      </if>
+      <if test="clearingForm != null">
+        clearing_form = #{clearingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="officeName != null">
+        office_name = #{officeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectExistsWaybillNo" resultType="java.lang.Integer">
+    select count(1)
+    from send_bill
+    where waybill_no = #{waybillNo}
+  </select>
+
+  <select id="selectByWaybillNo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from send_bill
+    where waybill_no = #{waybillNo,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectByState" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from send_bill
+    <where>
+      <if test="state != null">
+        state = #{state}
+      </if>
+    </where>
+    order by state
+    limit #{offset}, #{pageSize}
+  </select>
+
+  <select id="selectCountByState" resultType="java.lang.Integer">
+
+    select count(1)
+    from send_bill
+    <where>
+      <if test="state != null">
+        state = #{state}
+      </if>
+    </where>
+  </select>
+
+  <update id="updateState">
+    update send_bill set state = #{state}
+    where waybill_no = #{waybillNo}
+  </update>
+</mapper>

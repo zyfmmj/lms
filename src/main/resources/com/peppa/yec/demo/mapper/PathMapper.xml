@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peppa.yec.demo.mapper.PathMapper">
+
+    <sql id="columns">
+         id, officeId, `order`, terminus, starting_cost, weight_cost, bulk_cost, total_cost
+    </sql>
+
+    <resultMap id="pathMap" type="path">
+        <id column="id" property="id" />
+        <result column="officeId" property="officeId" />
+        <result column="order" property="order" />
+        <result column="terminus" property="terminus" />
+        <result column="starting_cost" property="startingCost" />
+        <result column="weight_cost" property="weightCost" />
+        <result column="bulk_cost" property="bulkCost" />
+        <result column="total_cost" property="totalCost" />
+    </resultMap>
+    
+    <select id="findByPath" resultMap="pathMap">
+        select
+        <include refid="columns" />
+        from path
+        where `order` = #{order} and terminus = #{terminus}
+    </select>
+
+    <select id="findByOfficeId" resultMap="pathMap">
+        select
+        <include refid="columns" />
+        from path
+        where officeId = #{officeId}
+    </select>
+</mapper>

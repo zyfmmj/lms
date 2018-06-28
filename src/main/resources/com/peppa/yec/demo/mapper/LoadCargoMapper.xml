@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.peppa.yec.demo.mapper.LoadCargoMapper">
+  <resultMap id="BaseResultMap" type="loadCargo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="send_id" jdbcType="INTEGER" property="sendId" />
+    <result column="invoice_no" jdbcType="INTEGER" property="invoiceNo" />
+    <result column="site" jdbcType="VARCHAR" property="site" />
+    <result column="load_date" jdbcType="TIMESTAMP" property="loadDate" />
+    <result column="carId" jdbcType="VARCHAR" property="carId" />
+    <result column="cargo_state" jdbcType="BIT" property="cargoState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, send_id, invoice_no, site, load_date, carId, cargo_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from load_cargo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from load_cargo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="loadCargo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into load_cargo (send_id, invoice_no, site, 
+      load_date, carId, cargo_state
+      )
+    values (#{sendId,jdbcType=INTEGER}, #{invoiceNo,jdbcType=INTEGER}, #{site,jdbcType=VARCHAR}, 
+      #{loadDate,jdbcType=TIMESTAMP}, #{carId,jdbcType=VARCHAR}, #{cargoState,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="loadCargo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into load_cargo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sendId != null">
+        send_id,
+      </if>
+      <if test="invoiceNo != null">
+        invoice_no,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+      <if test="loadDate != null">
+        load_date,
+      </if>
+      <if test="carId != null">
+        carId,
+      </if>
+      <if test="cargoState != null">
+        cargo_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sendId != null">
+        #{sendId,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceNo != null">
+        #{invoiceNo,jdbcType=INTEGER},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="loadDate != null">
+        #{loadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carId != null">
+        #{carId,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoState != null">
+        #{cargoState,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="loadCargo">
+    update load_cargo
+    <set>
+      <if test="sendId != null">
+        send_id = #{sendId,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceNo != null">
+        invoice_no = #{invoiceNo,jdbcType=INTEGER},
+      </if>
+      <if test="site != null">
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="loadDate != null">
+        load_date = #{loadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carId != null">
+        carId = #{carId,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoState != null">
+        cargo_state = #{cargoState,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="loadCargo">
+    update load_cargo
+    set send_id = #{sendId,jdbcType=INTEGER},
+      invoice_no = #{invoiceNo,jdbcType=INTEGER},
+      site = #{site,jdbcType=VARCHAR},
+      load_date = #{loadDate,jdbcType=TIMESTAMP},
+      carId = #{carId,jdbcType=VARCHAR},
+      cargo_state = #{cargoState,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+  <select id="selectByInvoiceNo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from load_cargo
+    where invoice_no = #{invoiceNo,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectExistsInvoiceNo" resultType="java.lang.Integer">
+    select count(1)
+    from load_cargo
+    where invoice_no = #{invoiceNo,jdbcType=INTEGER}
+  </select>
+</mapper>
